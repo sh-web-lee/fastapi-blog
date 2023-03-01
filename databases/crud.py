@@ -9,4 +9,5 @@ def get_user(db: Session, user: schemas.UserForm):
         models.User.password == user.password,
         models.User.is_active == True
     ).first()
-    return data
+    if data is None: return
+    return schemas.UserResp.from_orm(data)
